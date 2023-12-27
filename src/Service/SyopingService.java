@@ -11,6 +11,10 @@ import java.util.Scanner;
 public class SyopingService {
     SyopingmolRepository syopingmolRepository = new SyopingmolRepository();
     Scanner scanner = new Scanner(System.in);
+
+    public static void save() {
+    }
+
     //검색
     public void search() {
         System.out.print("검색: ");
