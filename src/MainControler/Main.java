@@ -31,8 +31,8 @@ public class Main {
                 }
 
             } else if (selectNo == 3) {
-                if (CommonVariables.loginId == null) {
-
+                if (CommonVariables.loginId != null) {
+                    syopingService.logout();
                 } else {
                     System.out.println("이미 로그아웃 상태입니다.");
                 }
@@ -78,7 +78,7 @@ public class Main {
                     System.out.print("선택> ");
                     int select = scanner.nextInt();
                     if (select == 1) {
-                        SyopingService.save();
+                        syopingService.save();
                     } else if (select == 2) {
                         sellerService.save();
                     } else if (select == 3) {
