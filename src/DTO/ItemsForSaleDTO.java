@@ -6,8 +6,9 @@ import java.time.format.DateTimeFormatter;
 public class ItemsForSaleDTO {
     private Long itemId;
     private String itemName;
-    private String sellerName;
+    private String sellerEmail;
     private int price;
+    private int stock;
     private String contents;
     private String createdAt;
 
@@ -27,12 +28,12 @@ public class ItemsForSaleDTO {
         this.itemName = itemName;
     }
 
-    public String getSellerName() {
-        return sellerName;
+    public String getSellerEmail() {
+        return sellerEmail;
     }
 
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
+    public void setSellerEmail(String sellerEmail) {
+        this.sellerEmail = sellerEmail;
     }
 
     public int getPrice() {
@@ -41,6 +42,14 @@ public class ItemsForSaleDTO {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getContents() {
@@ -61,12 +70,12 @@ public class ItemsForSaleDTO {
     private static Long itemIdValue = 1L;
     public ItemsForSaleDTO(){}
 
-
-    public ItemsForSaleDTO(String itemName, String sellerName, int price, String contents) {
+    public ItemsForSaleDTO( String itemName, String sellerEmail, int price, int stock, String contents) {
         this.itemId = itemIdValue++;
         this.itemName = itemName;
-        this.sellerName = sellerName;
+        this.sellerEmail = sellerEmail;
         this.price = price;
+        this.stock = stock;
         this.contents = contents;
         this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH시mm분ss초"));
     }
@@ -76,8 +85,9 @@ public class ItemsForSaleDTO {
         return "ItemsForSaleDTO{" +
                 "itemId=" + itemId +
                 ", itemName='" + itemName + '\'' +
-                ", sellerName='" + sellerName + '\'' +
+                ", sellerEmail='" + sellerEmail + '\'' +
                 ", price=" + price +
+                ", stock=" + stock +
                 ", contents='" + contents + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 '}';

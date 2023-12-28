@@ -12,7 +12,7 @@ public class SyopingmolRepository {
     List<MemberDTO> memberDTOList = new ArrayList<>();
 
 
-    public List<ItemsForSaleDTO> search(String sea) {
+    public List<ItemsForSaleDTO> search(String sea) {//검색
         List<ItemsForSaleDTO> result = new ArrayList<>();
         for (int i = 0; i < itemsForSaleDTOList.size(); i++) {
             if (itemsForSaleDTOList.get(i).getItemName().contains(sea)) {
@@ -21,17 +21,17 @@ public class SyopingmolRepository {
         }
         return result;
     }
-
-    public MemberDTO login(String memberId, String pass) {
-        MemberDTO result = null;
-        for (int i = 0; i < memberDTOList.size(); i++) {
-            if (memberId.equals(memberDTOList.get(i).getMemberId()) && pass.equals(memberDTOList.get(i).getPass())) {
-                CommonVariables.loginId = memberId;
-                result = memberDTOList.get(i);
-            }else {
-                result = null;
+    public ItemsForSaleDTO findById(Long itemId) {//물건 아이디로 찾기
+        ItemsForSaleDTO result = null;
+        for (int i = 0; i < itemsForSaleDTOList.size(); i++) {
+            if (itemId.equals(itemsForSaleDTOList.get(i).getItemId())) {
+                result = itemsForSaleDTOList.get(i);
             }
         }
         return result;
     }
+
+
 }
+
+
