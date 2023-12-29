@@ -4,6 +4,7 @@ import Common.CommonVariables;
 import DTO.AccountDTO;
 import DTO.ItemsForSaleDTO;
 import DTO.MemberDTO;
+import DTO.SellerDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +29,20 @@ public class MemberRepository {
     }
 
 
-    public void buy(ItemsForSaleDTO itemsForSaleDTO, int num) {//구매
-
-        boolean stockResult = itemsForSaleRepository.chackStock(itemsForSaleDTO,num);
+    public void buy(ItemsForSaleDTO itemsForSaleDTO, int  buyItemNum) {//구매
+        SellerDTO sellerDTO = sellerRepository.chackSellerDTOByItemsForSaleDTO(itemsForSaleDTO);
+        AccountDTO SellerAccount = accountRepository.chackSellerAccountBySellerDTO(sellerDTO);
+        boolean stockResult = itemsForSaleRepository.chackStock(itemsForSaleDTO, buyItemNum);
         if(stockResult){//제고확인
             for (int i = 0; i < memberDTOList.size(); i++) {
                 if (CommonVariables.loginId.equals(memberDTOList.get(i).getMemberId())) {//로그인 아이디와 일치하는 계좌번호 찾기
-                    String accountnum = memberDTOList.get(i).getAccount();
-                    int balance = accountRepository.chckBal(accountnum);//계좌내 잔액확인
+                    String accountNum = memberDTOList.get(i).getAccount();
+                    int balance = accountRepository.chckBal(accountNum);//계좌내 잔액확인
                     int itemprice = itemsForSaleDTO.getPrice();
-                    if (balance >= (itemprice * num)) {
-                        int withdrawMonney = balance - (itemprice * num);
-                        boolean drawResult = accountRepository.withdraw(accountnum,withdrawMonney);
+                    if (balance >= (itemprice * buyItemNum)) {
+                        int withdrawMonney = balance - (itemprice *  buyItemNum);
+                        boolean drawResult = accountRepository.withdraw(accountNum,withdrawMonney);
+                        accountRepository.deposit(SellerAccount,withdrawMonney);
                         if(drawResult){
                             System.out.println(CommonVariables.loginId+"님 "+itemsForSaleDTO.getItemName()+"가 구매 완료되었습니다.");
                         }

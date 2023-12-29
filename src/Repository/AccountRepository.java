@@ -2,6 +2,7 @@ package Repository;
 
 import Common.CommonVariables;
 import DTO.AccountDTO;
+import DTO.SellerDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,5 +38,25 @@ public class AccountRepository {
             }
         }
         return result;
+    }
+    //
+    public AccountDTO chackSellerAccountBySellerDTO(SellerDTO sellerDTO) {
+         AccountDTO result = null;
+        for (int i = 0; i < accountDTOList.size(); i++) {
+            if(sellerDTO.getAccount().equals(accountDTOList.get(i).getNumber())){
+                result = accountDTOList.get(i);
+            }
+        }
+         return result;
+    }
+
+    public void deposit(AccountDTO sellerAccount, int depMonney) {
+        for (int i = 0; i < accountDTOList.size(); i++) {
+            if(sellerAccount.equals(accountDTOList.get(i))){
+                int nowBal = accountDTOList.get(i).getBalance();
+                nowBal = nowBal + depMonney;
+                accountDTOList.get(i).setBalance(nowBal);
+            }
+        }
     }
 }

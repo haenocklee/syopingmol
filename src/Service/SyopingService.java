@@ -6,6 +6,7 @@ import DTO.MemberDTO;
 import Repository.MemberRepository;
 import Repository.SyopingmolRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,7 +27,7 @@ public class SyopingService {
         System.out.print("이메일을 입력하세요: ");
         String email = scanner.next();
         boolean chackEamilResult = memberRepository.chackEamil(email);
-        if(chackEamilResult){
+        if (chackEamilResult) {
             System.out.println("등록된 이메일입니다.");
             save();
         }
@@ -36,15 +37,17 @@ public class SyopingService {
         String account = scanner.next();
         MemberDTO memberDTO = new MemberDTO(memberId, name, pass, email, mobile, account);
         boolean saveResult = memberRepository.save(memberDTO);
-        if(saveResult){
+        if (saveResult) {
             System.out.println("회원가입 성공");
-        }else {
+        } else {
             System.out.println("회원가입실패");
         }
 
     }
 
     //검색 장바구니 구매
+    List<ItemsForSaleDTO> shoppingBasket = new ArrayList<>();
+
     public void search() {
         System.out.print("검색: ");
         String sea = scanner.next();
@@ -60,30 +63,36 @@ public class SyopingService {
             boolean run = true;
             while (run) {
                 System.out.println(itemsForSaleDTO);
-                System.out.println("1.구매 | 2.장바구니 넣기 | 3.리뷰작성 |0.나가기");
+                System.out.println("1.구매 | 2.장바구니 넣기 | 3.장바구니 물건 구매  |0.나가기");
                 int select = scanner.nextInt();
                 if (select == 1) {//구매
                     if (CommonVariables.loginId != null) {
                         System.out.println("몇개구매하시겠습니까?");
                         System.out.print("수량: ");
                         int num = scanner.nextInt();
-                        memberRepository.buy(itemsForSaleDTO,num);
+                        memberRepository.buy(itemsForSaleDTO, num);
                     } else {
                         System.out.println("회원전용 서비스입니다 로그인을해주세요");
                     }
                 } else if (select == 2) {//장바구니
-                    if(CommonVariables.loginId != null) {
-
-                    }else {
+                    if (CommonVariables.loginId != null) {
+                        shoppingBasket.add(itemsForSaleDTO);
+                        System.out.println("shoppingBasket = " + shoppingBasket);
+                        search();
+                    } else {
                         System.out.println("회원전용 서비스입니다 로그인을해주세요");
                     }
-                } else if (select == 3) {//리뷰작성
-
-                } else if (select == 0) {//나가기
+                } else if (select == 3) {//장바구니 물건 구매
+                    int basketPriceSum = 0;
+                    for (int i = 0; i < shoppingBasket.size(); i++) {
+                        basketPriceSum = basketPriceSum + shoppingBasket.get(i).getPrice();
+                        memberRepository.basket
+                    }
+                }else if (select == 0) {//나가기
                     run = false;
                 }
             }
-        } else {
+        }else{
             System.out.println("없는 물건id입니다 정확히 입력해주세요");
             search();
         }
