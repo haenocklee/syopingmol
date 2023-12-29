@@ -110,7 +110,7 @@ public class SyopingService {
     //로그아웃
     public void logout() {
         CommonVariables.loginId = null;
-        CommonVariables.manager = null;
+        CommonVariables.managerEmail = null;
         CommonVariables.loginSellerEmail = null;
         System.out.println("로그아웃 되었습니다.");
     }

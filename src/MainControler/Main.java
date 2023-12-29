@@ -1,6 +1,7 @@
 package MainControler;
 
 import Common.CommonVariables;
+import DTO.AnnouncementDTO;
 import Service.ManagerService;
 import Service.SellerService;
 import Service.SyopingService;
@@ -25,18 +26,16 @@ public class Main {
             if (selectNo == 1) {
                 syopingService.search();
             } else if (selectNo == 2) {
-                if (CommonVariables.loginId != null) {
+                System.out.println("로그인");
+                System.out.println("-------------------------");
+                System.out.println("1.일반회원 | 2.판매자 | 3.관리자");
+                System.out.println("-------------------------");
+                System.out.print("선택> ");
+                int select = scanner.nextInt();
                     syopingService.login();
-                } else {
-                    System.out.println("이미 로그인 상태입니다.");
-                }
 
             } else if (selectNo == 3) {
-                if (CommonVariables.loginId != null) {
                     syopingService.logout();
-                } else {
-                    System.out.println("이미 로그아웃 상태입니다.");
-                }
 
             } else if (selectNo == 4) {
                 if (CommonVariables.loginSellerEmail != null) {
@@ -64,21 +63,22 @@ public class Main {
 
             } else if (selectNo == 5) {
                 System.out.println("최근 공지 사항");
-
-                if(result != null){
-                    System.out.println(result);
-                }else{
-                    System.out.println("공지가 없습니다.");
-                }
+                managerService.announcementFindAll();
                 boolean noticeRun = true;
                 while (noticeRun){
                     if(CommonVariables.managerEmail != null) {
                         System.out.println("--------------------");
-                        System.out.println("1.공지리스트 | 2.공지수정 | 3.공지작성 | 0.메인메뉴");
+                        System.out.println("1.작성한 리스트 공지확인 | 2.공지작성 | 3.공지수정 | 0.메인메뉴");
                         System.out.println("--------------------");
                         System.out.print("선택> ");
                         int select = scanner.nextInt();
-
+                        if(select == 1){
+                            managerService.announcementFindByEmail();
+                        } else if (select == 2) {
+                            managerService.announcementSave();
+                        } else if (select == 3) {
+                           managerService.announcementUpdate();
+                        }
                     }
                 }
             } else if (selectNo == 0) {
