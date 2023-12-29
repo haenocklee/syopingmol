@@ -3,6 +3,7 @@ package Service;
 import Common.CommonVariables;
 import DTO.ItemsForSaleDTO;
 import DTO.MemberDTO;
+import Repository.ItemsForSaleRepository;
 import Repository.MemberRepository;
 import Repository.SyopingmolRepository;
 
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class SyopingService {
     SyopingmolRepository syopingmolRepository = new SyopingmolRepository();
     MemberRepository memberRepository = new MemberRepository();
+    ItemsForSaleRepository itemsForSaleRepository = new ItemsForSaleRepository();
     Scanner scanner = new Scanner(System.in);
 
     //회원가입
@@ -47,6 +49,7 @@ public class SyopingService {
 
     //검색 장바구니 구매
     List<ItemsForSaleDTO> shoppingBasket = new ArrayList<>();
+    int allPrice = 0;
 
     public void search() {
         System.out.print("검색: ");
@@ -70,33 +73,43 @@ public class SyopingService {
                         System.out.println("몇개구매하시겠습니까?");
                         System.out.print("수량: ");
                         int num = scanner.nextInt();
-                        memberRepository.buy(itemsForSaleDTO, num);
+                        boolean stockResult = itemsForSaleRepository.chackStock(itemsForSaleDTO, num);
+                        if(stockResult){
+                            memberRepository.buy(itemsForSaleDTO, num);
+                        }else {
+                            System.out.println("제고가없습니다.");
+                        }
+
                     } else {
                         System.out.println("회원전용 서비스입니다 로그인을해주세요");
                     }
-                } else if (select == 2) {//장바구니
+                } else if (select == 2) {//장바구니 넣기
                     if (CommonVariables.loginId != null) {
-                        shoppingBasket.add(itemsForSaleDTO);
-                        System.out.println("shoppingBasket = " + shoppingBasket);
-                        search();
+                        System.out.println("몇개를 장바구니에 넣겠습니까");
+                        System.out.print("수량: ");
+                        int num = scanner.nextInt();
+                        boolean resultStock = itemsForSaleRepository.chackStock(itemsForSaleDTO, num);
+                        if(resultStock){
+                            allPrice = allPrice + (num*itemsForSaleDTO.getPrice());
+                            System.out.println("금액합: "+ allPrice);
+                        }else {
+                            System.out.println("제고가없습니다.");
+                        }
                     } else {
                         System.out.println("회원전용 서비스입니다 로그인을해주세요");
                     }
-                } else if (select == 3) {//장바구니 물건 구매
-                    int basketPriceSum = 0;
-                    for (int i = 0; i < shoppingBasket.size(); i++) {
-                        basketPriceSum = basketPriceSum + shoppingBasket.get(i).getPrice();
-                        memberRepository.basket
-                    }
-                }else if (select == 0) {//나가기
+                } else if (select == 3) {//장바구니 물건 구매... 너...구매내역도 만들어야하니?
+
+                } else if (select == 0) {//나가기
                     run = false;
                 }
             }
-        }else{
+        } else {
             System.out.println("없는 물건id입니다 정확히 입력해주세요");
             search();
         }
     }
+
 
     //로그인
     public void login() {

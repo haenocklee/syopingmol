@@ -3,13 +3,13 @@ package DTO;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ItemsForSaleDTO {
+public class buyItemInforDTO {
     private Long itemId;
     private String itemName;
     private String sellerEmail;
     private int price;
-    private int stock;
-    private String contents;
+    private String buyedMemberId;
+    private String itemcount;
     private String createdAt;
 
     public Long getItemId() {
@@ -44,20 +44,20 @@ public class ItemsForSaleDTO {
         this.price = price;
     }
 
-    public int getStock() {
-        return stock;
+    public String getBuyedMemberId() {
+        return buyedMemberId;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setBuyedMemberId(String buyedMemberId) {
+        this.buyedMemberId = buyedMemberId;
     }
 
-    public String getContents() {
-        return contents;
+    public String getItemcount() {
+        return itemcount;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
+    public void setItemcount(String itemcount) {
+        this.itemcount = itemcount;
     }
 
     public String getCreatedAt() {
@@ -67,28 +67,26 @@ public class ItemsForSaleDTO {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
-    private static Long itemIdValue = 1L;
-    public ItemsForSaleDTO(){}
 
-    public ItemsForSaleDTO(String itemName, String sellerEmail, int price, int stock, String contents) {
-        this.itemId = itemIdValue++;
+    public buyItemInforDTO(Long itemId, String itemName, String sellerEmail, int price, String buyedMemberId, String itemcount) {
+        this.itemId = itemId;
         this.itemName = itemName;
         this.sellerEmail = sellerEmail;
         this.price = price;
-        this.stock = stock;
-        this.contents = contents;
+        this.buyedMemberId = buyedMemberId;
+        this.itemcount = itemcount;
         this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH시mm분ss초"));
     }
 
     @Override
     public String toString() {
-        return "ItemsForSaleDTO{" +
+        return "buyItemInforDTO{" +
                 "itemId=" + itemId +
                 ", itemName='" + itemName + '\'' +
                 ", sellerEmail='" + sellerEmail + '\'' +
                 ", price=" + price +
-                ", stock=" + stock +
-                ", contents='" + contents + '\'' +
+                ", buyedMemberId='" + buyedMemberId + '\'' +
+                ", itemcount='" + itemcount + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 '}';
     }
