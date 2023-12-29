@@ -73,7 +73,7 @@ public class ManagerService {
         System.out.print("수정할 공지사항 id 입력: ");
         Long id = scanner.nextLong();
         boolean resultchackById = announcementRepository.chackById(id);
-        if(!resultchackById){
+        if (!resultchackById) {
             System.out.println("자신이 작성한 공지만 수정가능합니다");
             System.out.println("id값이 틀립니다 다시입력해주세요.");
             announcementUpdate();
@@ -82,11 +82,28 @@ public class ManagerService {
         String title = scanner.next();
         System.out.print("내용 수정: ");
         String contents = scanner.next();
-        boolean resultUpdate = announcementRepository.announcementUpdate(id,title,contents);
+        boolean resultUpdate = announcementRepository.announcementUpdate(id, title, contents);
         if (resultUpdate) {
             System.out.println("수정완료");
         } else {
             System.out.println("수정실패");
+        }
+    }
+
+    public void login() {
+        if (CommonVariables.managerEmail == null) {
+            System.out.print("이메일 입력: ");
+            String email = scanner.next();
+            System.out.print("비밀번호 입력: ");
+            String pass = scanner.next();
+            boolean result = managerRepository.login(email, pass);
+            if (result) {
+                System.out.println("로그인 완료 " + email + "님 환영합니다.");
+            } else {
+                System.out.println("로그인 실패 입력하신 정보가 틀립니다.");
+            }
+        } else {
+            System.out.println("이미 로그인 상태입니다.");
         }
     }
 

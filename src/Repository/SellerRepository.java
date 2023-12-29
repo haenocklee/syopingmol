@@ -31,4 +31,15 @@ public class SellerRepository {
         }
         return result;
     }
+
+    public boolean login(String email, String pass) {
+        boolean result = false;
+        for (int i = 0; i < sellerDTOList.size(); i++) {
+            if(email.equals(sellerDTOList.get(i).getEmail())&&pass.equals(sellerDTOList.get(i).getPass())){
+                CommonVariables.loginSellerEmail = email;
+                result = true;
+            }
+        }
+        return result;
+    }
 }

@@ -67,10 +67,7 @@ public class SyopingService {
                         System.out.println("몇개구매하시겠습니까?");
                         System.out.print("수량: ");
                         int num = scanner.nextInt();
-                        boolean result = memberRepository.buy(itemsForSaleDTO,num);
-                        if (result) {
-                            System.out.println(CommonVariables.loginId + "님 구매가 완료되었습니다.");
-                        }
+                        memberRepository.buy(itemsForSaleDTO,num);
                     } else {
                         System.out.println("회원전용 서비스입니다 로그인을해주세요");
                     }
@@ -87,7 +84,7 @@ public class SyopingService {
                 }
             }
         } else {
-            System.out.println("없는 물건입니다 정확히 입력해주세요");
+            System.out.println("없는 물건id입니다 정확히 입력해주세요");
             search();
         }
     }

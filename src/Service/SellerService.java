@@ -86,4 +86,21 @@ public class SellerService {
         List<CommentDTO>commentDTOS = commentRepository.checkCommentById(itemId);
         System.out.println(commentDTOS);
     }
+
+    public void login() {
+        if(CommonVariables.managerEmail == null) {
+            System.out.print("이메일 입력: ");
+            String email = scanner.next();
+            System.out.print("비밀번호 입력: ");
+            String pass = scanner.next();
+            boolean result = sellerRepository.login(email,pass);
+            if(result){
+                System.out.println("로그인 완료 " + email+ "님 환영합니다.");
+            }else {
+                System.out.println("로그인 실패 입력하신 정보가 틀립니다.");
+            }
+        }else{
+            System.out.println("이미 로그인 상태입니다.");
+        }
+    }
 }

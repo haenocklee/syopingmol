@@ -12,6 +12,7 @@ public class MemberRepository {
     List<MemberDTO> memberDTOList = new ArrayList<>();
     AccountRepository accountRepository = new AccountRepository();
     ItemsForSaleRepository itemsForSaleRepository = new ItemsForSaleRepository();
+    SellerRepository sellerRepository = new SellerRepository();
 
     public MemberDTO login(String memberId, String pass) {//로그인
         MemberDTO result = null;
@@ -27,8 +28,8 @@ public class MemberRepository {
     }
 
 
-    public boolean buy(ItemsForSaleDTO itemsForSaleDTO, int num) {//구매
-        boolean result = false;
+    public void buy(ItemsForSaleDTO itemsForSaleDTO, int num) {//구매
+
         boolean stockResult = itemsForSaleRepository.chackStock(itemsForSaleDTO,num);
         if(stockResult){//제고확인
             for (int i = 0; i < memberDTOList.size(); i++) {
@@ -37,19 +38,19 @@ public class MemberRepository {
                     int balance = accountRepository.chckBal(accountnum);//계좌내 잔액확인
                     int itemprice = itemsForSaleDTO.getPrice();
                     if (balance >= (itemprice * num)) {
-                        int monney = balance - (itemprice * num);
-                        boolean drawResult = accountRepository.withdraw(accountnum,monney);
+                        int withdrawMonney = balance - (itemprice * num);
+                        boolean drawResult = accountRepository.withdraw(accountnum,withdrawMonney);
                         if(drawResult){
-                            System.out.println("출금완료");
-                            result = true;
+                            System.out.println(CommonVariables.loginId+"님 "+itemsForSaleDTO.getItemName()+"가 구매 완료되었습니다.");
                         }
+                    }else {
+                        System.out.println("잔액이 부족합니다.");
                     }
                 }
             }
         }else {
             System.out.println("제고가 부족합니다.");
         }
-        return result;
     }
 
     public boolean save(MemberDTO memberDTO) {//일반회원리스트 저장

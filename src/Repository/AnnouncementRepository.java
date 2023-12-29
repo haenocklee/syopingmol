@@ -40,12 +40,15 @@ public class AnnouncementRepository {
     }
 
     public boolean announcementUpdate(Long id, String title,String contents) {
+        boolean result = false;
         String managerEmail  = CommonVariables.managerEmail;
         for (int i = 0; i < announcementDTOList.size(); i++) {
             if(id.equals(announcementDTOList.get(i).getAnnouncementId())&&managerEmail.equals(announcementDTOList.get(i).getManagerEmail())){
                 announcementDTOList.get(i).setTitle(title);
                 announcementDTOList.get(i).setContents(contents);
+                result = true;
             }
         }
+        return result;
     }
 }
