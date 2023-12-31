@@ -48,7 +48,7 @@ public class SellerService {
         System.out.println("상품등록");
         System.out.print("상품명: ");
         String itemName = scanner.next();
-        System.out.print("판매자:" + sellerRepository.chackSeller().getName());
+        System.out.println("판매자:" + sellerRepository.chackSeller().getName());
         String sellerEmail = sellerRepository.chackSeller().getName();
         System.out.print("가격: ");
         int price = scanner.nextInt();
@@ -88,7 +88,7 @@ public class SellerService {
     }
 
     public void login() {
-        if(CommonVariables.managerEmail == null) {
+        if(CommonVariables.loginSellerEmail == null) {
             System.out.print("이메일 입력: ");
             String email = scanner.next();
             System.out.print("비밀번호 입력: ");

@@ -4,92 +4,75 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AccountDTO {
-    private Long uid;
-    private String number;
-    private String masterName;
-    private int balance;
-    private int deposit;
-    private int withdraw;
-    private String createdAT;
 
-    public Long getUid() {
-        return uid;
-    }
+        //id, accountNumber(계좌번호, String), deposit(입금액), withdraw(출금액), bankingAt(입출금 발생 시간, String)
+        private Long id;
+        private String accountNumber;
+        private long deposit;
+        private long withdraw;
+        private String bankingAt;
 
-    public void setUid(Long uid) {
-        this.uid = uid;
-    }
+        public Long getId() {
+            return id;
+        }
 
-    public String getNumber() {
-        return number;
-    }
+        public void setId(Long id) {
+            this.id = id;
+        }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
+        public String getAccountNumber() {
+            return accountNumber;
+        }
 
-    public String getMasterName() {
-        return masterName;
-    }
+        public void setAccountNumber(String accountNumber) {
+            this.accountNumber = accountNumber;
+        }
 
-    public void setMasterName(String masterName) {
-        this.masterName = masterName;
-    }
+        public long getDeposit() {
+            return deposit;
+        }
 
-    public int getBalance() {
-        return balance;
-    }
+        public void setDeposit(long deposit) {
+            this.deposit = deposit;
+        }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
+        public long getWithdraw() {
+            return withdraw;
+        }
 
-    public int getDeposit() {
-        return deposit;
-    }
+        public void setWithdraw(long withdraw) {
+            this.withdraw = withdraw;
+        }
 
-    public void setDeposit(int deposit) {
-        this.deposit = deposit;
-    }
+        public String getBankingAt() {
+            return bankingAt;
+        }
 
-    public int getWithdraw() {
-        return withdraw;
-    }
+        public void setBankingAt(String bankingAt) {
+            this.bankingAt = bankingAt;
+        }
 
-    public void setWithdraw(int withdraw) {
-        this.withdraw = withdraw;
-    }
+        private static Long idValue = 1L;
 
-    public String getCreatedAT() {
-        return createdAT;
-    }
+        public AccountDTO(){}
 
-    public void setCreatedAT(String createdAT) {
-        this.createdAT = createdAT;
-    }
-    private static Long uidValue = 1l;
-    public AccountDTO(){}
+        public AccountDTO(String accountNumber,long deposit,long withdraw, String bankingAt) {
+            this.id = idValue++;
+            this.bankingAt = bankingAt;
+            this.accountNumber = accountNumber;
+            this.deposit = deposit;
+            this.withdraw = withdraw;
 
-    public AccountDTO(String number, String masterName) {
-        this.uid = uidValue++;
-        this.number = number;
-        this.masterName = masterName;
-        this.balance = 0;
-        this.deposit = 0;
-        this.withdraw = 0;
-        this.createdAT = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH시mm분ss초"));
-    }
+        }
 
-    @Override
-    public String toString() {
-        return "AccountDTO{" +
-                "uid=" + uid +
-                ", number='" + number + '\'' +
-                ", masterName='" + masterName + '\'' +
-                ", balance=" + balance +
-                ", deposit=" + deposit +
-                ", withdraw=" + withdraw +
-                ", createdAT=" + createdAT +
-                '}';
+        @Override
+        public String toString() {
+            return "AccountDTO{" +
+                    "id=" + id +
+                    ", accountNumber='" + accountNumber + '\'' +
+                    ", deposit=" + deposit +
+                    ", withdraw=" + withdraw +
+                    ", bankingAt='" + bankingAt + '\'' +
+                    '}';
+        }
     }
-}

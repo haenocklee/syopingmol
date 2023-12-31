@@ -53,4 +53,14 @@ public class SellerRepository {
         }
         return result;
     }
+
+    public String drowAccountNumberByEmail(String sellSeller) {//이메일로 계좌 가져오기
+        String result =  null;
+        for (int i = 0; i < sellerDTOList.size(); i++) {
+            if(sellSeller.equals(sellerDTOList.get(i).getEmail())){
+                result =  sellerDTOList.get(i).getAccount();
+            }
+        }
+        return result;
+    }
 }

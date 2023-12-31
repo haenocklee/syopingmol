@@ -78,7 +78,7 @@ public class Main {
                 managerService.announcementFindAll();
                 boolean runNotice = true;
                 while (runNotice) {
-                    if (CommonVariables.managerEmail != null) {
+                    if (CommonVariables.loginManagerEmail != null) {
                         System.out.println("--------------------");
                         System.out.println("1.작성한 리스트 공지확인 | 2.공지작성 | 3.공지수정 | 0.메인메뉴");
                         System.out.println("--------------------");

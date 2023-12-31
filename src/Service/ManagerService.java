@@ -37,8 +37,8 @@ public class ManagerService {
     }
 
     public void announcementSave() {
-        System.out.println("작성자: " + CommonVariables.managerEmail);
-        String managerEmail = CommonVariables.managerEmail;
+        System.out.println("작성자: " + CommonVariables.loginManagerEmail);
+        String managerEmail = CommonVariables.loginManagerEmail;
         System.out.print("제목: ");
         String title = scanner.next();
         System.out.print("내용: ");
@@ -91,7 +91,7 @@ public class ManagerService {
     }
 
     public void login() {
-        if (CommonVariables.managerEmail == null) {
+        if (CommonVariables.loginManagerEmail == null) {
             System.out.print("이메일 입력: ");
             String email = scanner.next();
             System.out.print("비밀번호 입력: ");
